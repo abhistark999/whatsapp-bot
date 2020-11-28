@@ -593,7 +593,9 @@ module.exports = HandleMsg = async (aruga, message) => {
 			.then(async (res) => {
 				await aruga.reply(from, res.result, id)
 			})
+
 			break
+
 
         //Random Images
         case 'anime':

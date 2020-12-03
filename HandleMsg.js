@@ -180,7 +180,7 @@ module.exports = HandleMsg = async (aruga, message) => {
                           await aruga.reply(from, 'Successfully joined the group via link!', id)
                       })
                       .catch(() => {
-                          aruga.reply(from, 'Gagal!', id)
+                          aruga.reply(from, 'Failed! to join the group.', id)
                       })
             }
             break
@@ -212,22 +212,22 @@ module.exports = HandleMsg = async (aruga, message) => {
                     var imageBase64 = `data:${mimetype};base64,${mediaData.toString('base64')}`
                     var base64img = imageBase64
                     var outFile = './media/noBg.png'
-		            // kamu dapat mengambil api key dari website remove.bg dan ubahnya difolder settings/api.json
+		            // You can grab the api key from the remove.bg website and change it in the settings / api.json folder
                     var result = await removeBackgroundFromImageBase64({ base64img, apiKey: apiNoBg, size: 'auto', type: 'auto', outFile })
                     await fs.writeFile(outFile, result.base64img)
                     await aruga.sendImageAsSticker(from, `data:${mimetype};base64,${result.base64img}`)
                     } catch(err) {
                     console.log(err)
-	   	            await aruga.reply(from, 'Sorry, today usage limit has reached the maximum', id)
+	   	            await aruga.reply(from, 'Sorry, today\'s maximum usage limit has reached.', id)
                     }
                 }
             } else if (args.length === 1) {
-                if (!isUrl(url)) { await aruga.reply(from, 'Sorry, todays usage limit has reached the maximum.', id) }
+                if (!isUrl(url)) { await aruga.reply(from, 'Sorry, today\'s maximum usage limit has reached.', id) }
                 aruga.sendStickerfromUrl(from, url).then((r) => (!r && r !== undefined)
                     ? aruga.sendText(from, 'Sorry, the link you submitted does not contain an image.')
                     : aruga.reply(from, 'Here\'s your sticker')).then(() => console.log(`Sticker Processed for ${processTime(t, moment())} Second`))
             } else {
-                await aruga.reply(from, `No picture! To use ${prefix}sticker\n\n\nSend pictures with captions\n${prefix}sticker <biasa>\n${prefix}sticker nobg <tanpa background>\n\nor Send message with\n${prefix}sticker <link_gambar>`, id)
+                await aruga.reply(from, `No picture! To use ${prefix}sticker command\n\n\nSend pictures with captions\n${prefix}sticker <link_gambar>`, id)
             }
             break
         case 'stickergif':
@@ -235,7 +235,7 @@ module.exports = HandleMsg = async (aruga, message) => {
             if (isMedia || isQuotedVideo) {
                 if (mimetype === 'video/mp4' && message.duration < 10 || mimetype === 'image/gif' && message.duration < 10) {
                     var mediaData = await decryptMedia(message, uaOverride)
-                    aruga.reply(from, '[WAIT] In process⏳ please wai ± 1 min!', id)
+                    aruga.reply(from, '[WAIT] In process⏳ please wait ± 1 min!', id)
                     var filename = `./media/stickergif.${mimetype.split('/')[1]}`
                     await fs.writeFileSync(filename, mediaData)
                     await exec(`gify ${filename} ./media/stickergf.gif --fps=30 --scale=240:240`, async function (error, stdout, stderr) {
@@ -246,10 +246,10 @@ module.exports = HandleMsg = async (aruga, message) => {
                         })
                     })
                   } else {
-                    aruga.reply(from, `[❗] Kirim gif with caption *${prefix}stickergif* max 10 sec!`, id)
+                    aruga.reply(from, `[❗] Send GIF with caption *${prefix}stickergif* max 10 sec!`, id)
                    }
                 } else {
-		    aruga.reply(from, `[❗] Kirim gif with caption *${prefix}stickergif*`, id)
+		    aruga.reply(from, `[❗] Send GIF with caption *${prefix}stickergif*`, id)
 	        }
             break
         case 'stikergiphy':
@@ -298,7 +298,7 @@ module.exports = HandleMsg = async (aruga, message) => {
                         aruga.reply(from, 'There is an error!')
                     })
             } else {
-                await aruga.reply(from, `No picture! Please send a picture with a caption ${prefix}meme <teks_atas> | <teks_bawah>\ncontoh: ${prefix}meme upper text | text below`, id)
+                await aruga.reply(from, `No picture! Please send a picture with a caption ${prefix}meme <teks_atas> | <teks_bawah>\nExample ${prefix}meme upper text | text below`, id)
             }
             break
         case 'quotemaker':
@@ -307,12 +307,12 @@ module.exports = HandleMsg = async (aruga, message) => {
                 const quotes = qmaker[1]
                 const author = qmaker[2]
                 const theme = qmaker[3]
-                aruga.reply(from, 'Prossesing kak..', id)
+                aruga.reply(from, 'processing . . .', id)
                 try {
                     const hasilqmaker = await images.quote(quotes, author, theme)
                     aruga.sendFileFromUrl(from, `${hasilqmaker}`, '', 'Ini kak..', id)
                 } catch {
-                    aruga.reply('ell the process failed, brother, the contents are correct yet?..', id)
+                    aruga.reply('Yo all the process failed, bruh, you sure the contents are correct yet?..', id)
                 }
             } else {
                 aruga.reply(from, `Usage ${prefix}quotemaker |isi quote|author|theme\n\nexample: ${prefix}quotemaker |I love you|-aruga|random\n\nfor the theme, use random kak..`)
@@ -322,9 +322,9 @@ module.exports = HandleMsg = async (aruga, message) => {
             if (args.length == 0) return aruga.reply(from, `Make the bot write the text that is sent as an image\nusage: ${prefix}nulis [teks]\n\nexample: ${prefix}nulis i love you 3000`, id)
             const nulisq = body.slice(7)
             const nulisp = await rugaapi.tulis(nulisq)
-            await aruga.sendImage(from, `${nulisp}`, '', 'Nih...', id)
+            await aruga.sendImage(from, `${nulisp}`, '', 'Here U Go..', id)
             .catch(() => {
-                aruga.reply(from, 'There is an Error!', id)
+                aruga.reply(from, 'Oops An Error ! occured', id)
             })
             break
 

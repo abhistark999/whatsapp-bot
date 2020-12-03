@@ -318,7 +318,7 @@ module.exports = HandleMsg = async (aruga, message) => {
                 aruga.reply(from, `Usage ${prefix}quotemaker |isi quote|author|theme\n\nexample: ${prefix}quotemaker |I love you|-aruga|random\n\nfor the theme, use random kak..`)
             }
             break
-        case 'nulis':
+        case 'Pagetext':
             if (args.length == 0) return aruga.reply(from, `Make the bot write the text that is sent as an image\nusage: ${prefix}nulis [teks]\n\nexample: ${prefix}nulis i love you 3000`, id)
             const nulisq = body.slice(7)
             const nulisp = await rugaapi.tulis(nulisq)

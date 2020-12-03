@@ -319,7 +319,7 @@ module.exports = HandleMsg = async (aruga, message) => {
             }
             break
         case 'Pagetext':
-            if (args.length == 0) return aruga.reply(from, `Make the bot write the text that is sent as an image\nusage: ${prefix}nulis [teks]\n\nexample: ${prefix}nulis i love you 3000`, id)
+            if (args.length == 0) return aruga.reply(from, `Make the bot write the text that is sent as an image\nusage: ${prefix}Pagetext [teks]\n\nexample: ${prefix}Pagetext i love you 3000`, id)
             const nulisq = body.slice(7)
             const nulisp = await rugaapi.tulis(nulisq)
             await aruga.sendImage(from, `${nulisp}`, '', 'Here U Go..', id)
@@ -521,7 +521,7 @@ module.exports = HandleMsg = async (aruga, message) => {
 			
 		//Primbon Menu
 		case 'artinama':
-			if (args.length == 0) return aruga.reply(from, `To know the meaning of a person's name\nketik ${prefix}artinama namakamu`, id)
+			if (args.length == 0) return aruga.reply(from, `To know the meaning of a person's name\nExample: ${prefix}artinama namakamu`, id)
             rugaapi.artinama(body.slice(10))
 			.then(async(res) => {
 				await aruga.reply(from, `Arti : ${res}`, id)
@@ -838,8 +838,8 @@ module.exports = HandleMsg = async (aruga, message) => {
                 .then((result) => aruga.sendText(from, result))
                 .catch(() => aruga.sendText(from, 'Error, Incorrect language code.'))
             break
-		case 'covidindo':
-			rugaapi.covidindo()
+		case 'covid':
+			rugaapi.covid()
 			.then(async (res) => {
 				await aruga.reply(from, `${res}`, id)
 			})
